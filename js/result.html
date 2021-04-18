@@ -1,0 +1,93 @@
+<!doctype html>
+<!DOCTYPE html>
+
+<head>
+  <title>Topic based sentiment analysis</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='Mystyle.css') }}">
+  <link rel="stylesheet" href="CSS/Mystyle.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #dddddd;
+    }
+
+    tr:nth-child(even) {
+      color: white;
+    }
+  </style>
+</head>
+
+<body background="background.JPG" class="mybody">
+  <div>
+    <center>
+      <p>
+        <a href=#>Coins</a> | <a href=#>Conditions</a> | <a href=#>Charts</a> | <a href=#>About</a>
+      </p>
+    </center>
+  </div>
+
+  <div>
+    <center>
+      <table style="color: white; border = 1px solid white;">
+
+
+        <table style="width:50%">
+          <tr>
+            <th>BTC </th>
+            <th><span id="BTC-USD"> </span></th>
+          </tr>
+          <tr>
+            <th>ETH</th>
+            <th><span id="ETH-USD"></span></th>
+          </tr>
+          <tr>
+            <th>XRP</th>
+            <th><span id="XRP-USD"></span></th>
+          </tr>
+          <tr>
+            <th>LTC</th>
+            <th><span id="LTC-USD"></span></th>
+          </tr>
+        </table>
+      </table>
+    </center>
+
+  </div>
+
+  <script>
+    setInterval(getCoin, 1000, "BTC", "USD");
+    setInterval(getCoin, 1000, "ETH", "USD");
+    setInterval(getCoin, 1000, "XRP", "USD");
+    setInterval(getCoin, 1000, "LTC", "USD");
+
+
+<!--const api_url = 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD'-->
+      async function getCoin(coin1, coin2){
+        const api_url = 'https://min-api.cryptocompare.com/data/price?fsym=' + coin1 + '&tsyms=' + coin2
+        const response = await fetch(api_url);
+        const data = await response.json();
+        const { USD } = data;
+
+        document.getElementById(coin1 + '-' + coin2).textContent = USD
+      }
+  </script>
+</body>
